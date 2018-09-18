@@ -143,17 +143,17 @@
 
         </form>
         <hr/>
-        <a href="/.api/friends" >API Friends List</a> | <a href="https://github.com/lukiafang/FriendFinder">GitHub Repo</a>
+        <a href="/api/friends" >API Friends List</a> | <a href="https://github.com/lukiafang/FriendFinder">GitHub Repo</a>
 
     </div>
     <div id="match" class="modal fade" role="dialog">
-        <div class="modal dialog modal-lg">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Your New Friend</h4>
                 </div>
                 <div class="modal-body">
-                    <div id="userMatch"></div>
+                    <div ><h5 id="userMatch"></h5></div>
                     <div><img id="userMatchImage" src="http://www.animamacau.org/wp-content/uploads/2015/04/Lucky.3090.jpg"></div>
                 </div>
                 <div class="modal-footer">
@@ -195,7 +195,7 @@
                $.post('/api/friends', userData)
                     .done(function(data){
                         console.log("You might be friends with: " + data.matchName);
-                        $('#userMatch').html("You might be friends with: " + data.matchName)
+                        $('#userMatch').html("You might be friends with: " + data.matchName);
                         $('#userMatchImage').attr("src", data.matchImage);
                         console.log(data.matchImage)
                     })

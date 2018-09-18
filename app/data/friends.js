@@ -1,4 +1,4 @@
-var friends ={
+var friends = [{
     name: "Lucky",
     photo: "http://www.animamacau.org/wp-content/uploads/2015/04/Lucky.3090.jpg",
     scores: [
@@ -13,5 +13,6 @@ var friends ={
         "2",
         "1"
     ]
-};
+}
+]
 module.exports = friends;
