@@ -1,8 +1,6 @@
-// Pull in required dependencies
-var path = require('path');
 
-// Import the list of friend entries
-var friends = require('../data/friends.js');
+
+var friendsData = require('../data/friends.js');
 
 // Export API routes
 module.exports = function(app) {
@@ -10,29 +8,30 @@ module.exports = function(app) {
 
 	// Total list of friend entries
 	app.get('/api/friends', function(req, res) {
-		res.json(friends);
+		res.json(friendsData);
 	});
 
 	// Add new friend entry
 	app.post('/api/friends', function(req, res) {
-		// Capture the user input object
+		
 		var userInput = req.body;
-		// console.log('userInput = ' + JSON.stringify(userInput));
 
-		var userResponses = userInput.scores;
+		var userScore = userInput.score;
 		// console.log('userResponses = ' + userResponses);
 
 		// Compute best friend match
 		var matchName = '';
 		var matchImage = '';
-		var totalDifference = 10000; 
+		var totalDifference = 10000; // Make the initial value big for comparison
 
-		for (var i = 0; i < friends.length; i++) {
+		// Examine all existing friends in the list
+		for (var i = 0; i < friendsData.length; i++) {
+			 console.log('friend = ' + JSON.stringify(friendsData[i]));
 
 			// Compute differenes for each question
 			var diff = 0;
-			for (var j = 0; j < userResponses.length; j++) {
-				diff += Math.abs(friends[i].scores[j] - userResponses[j]);
+			for (var j = 0; j < userScore.length; j++) {
+				diff += Math.abs(friendsData[i].score[j] - userScore[j]);
 			}
 			// console.log('diff = ' + diff);
 
@@ -43,15 +42,17 @@ module.exports = function(app) {
 				// console.log('Friend image = ' + friends[i].photo);
 
 				totalDifference = diff;
-				matchName = friends[i].name;
-				matchImage = friends[i].photo;
+				matchName = friendsData[i].name;
+				matchImage = friendsData[i].photo;
 			}
 		}
 
-		// Add new user
-		friends.push(userInput);
 
-		// Send appropriate response
+		
+		friendsData.push(userInput);
+
 		res.json({status: 'OK', matchName: matchName, matchImage: matchImage});
+		console.log(userInput)
+
 	});
 };
